@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TechK Android Challenge</string>
+    <string name="title_tag_list">Tags</string>
+    <string name="title_tag_detail">Tag Detail</string>
 </resources>

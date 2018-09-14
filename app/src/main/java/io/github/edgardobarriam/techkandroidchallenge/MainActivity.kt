@@ -12,8 +12,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button_gallery.onClick { startActivity<MainActivity>() }
-        button_upload.onClick {startActivity<MainActivity>() }
+        button_gallery.onClick { startActivity<TagListActivity>() }
+        button_upload.onClick { startActivity<MainActivity>() }
         button_settings.onClick { startActivity<MainActivity>() }
         button_exit.onClick { finish() }
     }
