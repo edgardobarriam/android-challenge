@@ -4,13 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
-import android.support.design.widget.Snackbar
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 
 import io.github.edgardobarriam.techkandroidchallenge.dummy.DummyContent
+import io.github.edgardobarriam.techkandroidchallenge.server.ImgurApiService
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_tag_list.*
 import kotlinx.android.synthetic.main.tag_list_content.view.*
 import kotlinx.android.synthetic.main.tag_list.*
@@ -29,7 +34,12 @@ class TagListActivity : AppCompatActivity() {
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
-    private var twoPane: Boolean = false
+    private var twoPane = false
+
+    private val imgurApiService by lazy {
+        ImgurApiService.getInstance()
+    }
+    var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +49,7 @@ class TagListActivity : AppCompatActivity() {
         toolbar.title = title
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            // Search
         }
 
         if (tag_detail_container != null) {
@@ -52,6 +61,23 @@ class TagListActivity : AppCompatActivity() {
         }
 
         setupRecyclerView(tag_list)
+
+        fetchTagsFromApi()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        disposable?.dispose()
+    }
+
+    private fun fetchTagsFromApi() {
+        disposable = imgurApiService.getDefaultTags()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                {result ->Toast.makeText(this, result.data.tags[1].name, Toast.LENGTH_SHORT).show()},
+                                {error -> Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()}
+                        )
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {

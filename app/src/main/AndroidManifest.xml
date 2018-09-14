@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="io.github.edgardobarriam.techkandroidchallenge">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -8,7 +11,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop">
@@ -18,10 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".TagListActivity"
             android:label="@string/title_tag_list"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+
         <activity
             android:name=".TagDetailActivity"
             android:label="@string/title_tag_detail"
@@ -31,6 +38,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.edgardobarriam.techkandroidchallenge.TagListActivity" />
         </activity>
+
     </application>
 
 </manifest>
