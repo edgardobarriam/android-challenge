@@ -12,9 +12,9 @@ interface ImgurApiService {
 
     @GET("tags") fun getDefaultTags(): Observable<TagsListResponse>
 
-    @GET("gallery/search/?q_tags={tag}") fun getTagImages( @Path("tag") tag: String ): Observable<List<Gallery>> //TODO
+    @GET("gallery/search/?q_tags={tag}") fun getTagGalleries( @Path("tag") tag: String ): Observable<List<GallerySearchResponse>>
 
-    @GET("gallery/{imageId}/comments/") fun getImageComments( @Path("imageId") imageId: String ): Observable<Tag> //TODO
+    @GET("gallery/{imageId}/comments/") fun getImageComments( @Path("imageId") imageId: String ): Observable<GalleryCommentsResponse>
 
     // Singleton pattern
     companion object {
