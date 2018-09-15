@@ -1,13 +1,13 @@
-package io.github.edgardobarriam.techkandroidchallenge
+package io.github.edgardobarriam.techkandroidchallenge.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.github.edgardobarriam.techkandroidchallenge.R
 import io.github.edgardobarriam.techkandroidchallenge.dummy.DummyContent
-import kotlinx.android.synthetic.main.activity_tag_detail.*
-import kotlinx.android.synthetic.main.tag_detail.view.*
+import kotlinx.android.synthetic.main.activity_tag_images.*
 
 /**
  * A fragment representing a single Tag detail screen.
@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.tag_detail.view.*
  * in two-pane mode (on tablets) or a [TagDetailActivity]
  * on handsets.
  */
-class TagDetailFragment : Fragment() {
+class TagImagesFragment : Fragment() {
 
     /**
      * The dummy content this fragment is presenting.
@@ -26,11 +26,11 @@ class TagDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            if (it.containsKey(ARG_ITEM_ID)) {
+            if (it.containsKey(ARG_TAG_DISPLAY_NAME)) {
                 // Load the dummy content specified by the fragment
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
-                item = DummyContent.ITEM_MAP[it.getString(ARG_ITEM_ID)]
+                item = DummyContent.ITEM_MAP[it.getString(ARG_TAG_DISPLAY_NAME)]
                 activity?.toolbar_layout?.title = item?.content
             }
         }
@@ -38,11 +38,12 @@ class TagDetailFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.tag_detail, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_tag_images_list, container, false)
 
         // Show the dummy content as text in a TextView.
         item?.let {
-            rootView.tag_detail.text = it.details
+            //rootView.fragment_tag_images_list.text = it.details
+            // TODO: Crear adaptador para lista de imagenes del tag
         }
 
         return rootView
@@ -53,6 +54,6 @@ class TagDetailFragment : Fragment() {
          * The fragment argument representing the item ID that this fragment
          * represents.
          */
-        const val ARG_ITEM_ID = "item_id"
+        const val ARG_TAG_DISPLAY_NAME = "tag_display_name"
     }
 }

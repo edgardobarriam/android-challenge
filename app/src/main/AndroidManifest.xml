@@ -15,7 +15,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,18 +25,18 @@
         </activity>
 
         <activity
-            android:name=".TagListActivity"
+            android:name=".ui.activity.TagListActivity"
             android:label="@string/title_tag_list"
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".TagDetailActivity"
+            android:name=".ui.activity.TagImagesActivity"
             android:label="@string/title_tag_detail"
-            android:parentActivityName=".TagListActivity"
+            android:parentActivityName=".ui.activity.TagListActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.edgardobarriam.techkandroidchallenge.TagListActivity" />
+                android:value="io.github.edgardobarriam.techkandroidchallenge.ui.activity.TagListActivity" />
         </activity>
 
     </application>

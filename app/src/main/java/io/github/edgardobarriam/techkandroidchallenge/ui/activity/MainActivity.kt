@@ -1,7 +1,8 @@
-package io.github.edgardobarriam.techkandroidchallenge
+package io.github.edgardobarriam.techkandroidchallenge.ui.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import io.github.edgardobarriam.techkandroidchallenge.R
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
