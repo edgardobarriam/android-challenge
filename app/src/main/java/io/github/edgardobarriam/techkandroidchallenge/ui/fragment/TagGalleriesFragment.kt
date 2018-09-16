@@ -61,7 +61,7 @@ class TagGalleriesFragment : Fragment() {
     }
 
     fun setupGalleriesRecycler(recycler: RecyclerView, data: List<Gallery>) {
-        list_tag_galleries.adapter = GalleriesRecyclerViewAdapter(data)
+        list_tag_galleries.adapter = GalleriesRecyclerViewAdapter(context!!,data)
         list_tag_galleries.addItemDecoration(DividerItemDecoration(list_tag_galleries.context, DividerItemDecoration.VERTICAL))
     }
 

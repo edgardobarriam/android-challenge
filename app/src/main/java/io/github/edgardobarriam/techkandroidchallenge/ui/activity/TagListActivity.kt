@@ -13,6 +13,7 @@ import io.github.edgardobarriam.techkandroidchallenge.ui.fragment.TagGalleriesFr
 
 import io.github.edgardobarriam.techkandroidchallenge.server.ImgurApiService
 import io.github.edgardobarriam.techkandroidchallenge.server.Tag
+import io.github.edgardobarriam.techkandroidchallenge.ui.adapter.TagsRecyclerViewAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -82,62 +83,7 @@ class TagListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView, items : List<Tag>) {
-        recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, items, twoPane)
+        recyclerView.adapter = TagsRecyclerViewAdapter(this, items, twoPane)
     }
 
-    //TODO: Move this adapter to other file
-    class SimpleItemRecyclerViewAdapter(private val parentActivity: TagListActivity,
-                                        private val values: List<Tag>,
-                                        private val twoPane: Boolean) :
-            RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
-
-        private val onClickListener: View.OnClickListener
-
-        init {
-            onClickListener = View.OnClickListener { v ->
-                val item = v.tag as Tag
-                if (twoPane) {
-                    val fragment = TagGalleriesFragment().apply {
-                        arguments = Bundle().apply {
-                            putString(TagGalleriesFragment.ARG_TAG_DISPLAY_NAME, item.display_name)
-                            putString(TagGalleriesFragment.ARG_TAG_NAME, item.name)
-                        }
-                    }
-                    parentActivity.supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.tag_detail_container, fragment)
-                            .commit()
-                } else {
-                    // Handheld
-                    val intent = Intent(v.context, TagGalleriesActivity::class.java).apply {
-                        putExtra(TagGalleriesFragment.ARG_TAG_DISPLAY_NAME, item.display_name)
-                        putExtra(TagGalleriesFragment.ARG_TAG_NAME, item.name)
-                    }
-                    v.context.startActivity(intent)
-                }
-            }
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.tag_list_content, parent, false)
-            return ViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val item = values[position]
-            holder.tagDisplayName.text = item.display_name
-
-            with(holder.itemView) {
-                tag = item
-                setOnClickListener(onClickListener)
-            }
-        }
-
-        override fun getItemCount() = values.size
-
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val tagDisplayName: TextView = view.textView_tag_name
-        }
-    }
 }
