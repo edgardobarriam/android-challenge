@@ -6,8 +6,8 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import io.github.edgardobarriam.techkandroidchallenge.R
-import io.github.edgardobarriam.techkandroidchallenge.ui.fragment.TagImagesFragment
-import kotlinx.android.synthetic.main.activity_tag_images.*
+import io.github.edgardobarriam.techkandroidchallenge.ui.fragment.TagGalleriesFragment
+import kotlinx.android.synthetic.main.activity_tag_galleries.*
 
 /**
  * An activity representing a single Tag detail screen. This
@@ -15,14 +15,14 @@ import kotlinx.android.synthetic.main.activity_tag_images.*
  * item details are presented side-by-side with a list of items
  * in a [TagListActivity].
  */
-class TagImagesActivity : AppCompatActivity() {
+class TagGalleriesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tag_images)
+        setContentView(R.layout.activity_tag_galleries)
         setSupportActionBar(detail_toolbar)
 
-        val tagName = intent.getStringExtra(TagImagesFragment.ARG_TAG_DISPLAY_NAME)
+        val tagName = intent.getStringExtra(TagGalleriesFragment.ARG_TAG_DISPLAY_NAME)
         supportActionBar?.title = tagName
 
         fab.setOnClickListener { view ->
@@ -45,10 +45,13 @@ class TagImagesActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
-            val fragment = TagImagesFragment().apply {
+            val fragment = TagGalleriesFragment().apply {
                 arguments = Bundle().apply {
-                    putString(TagImagesFragment.ARG_TAG_DISPLAY_NAME,
-                            intent.getStringExtra(TagImagesFragment.ARG_TAG_DISPLAY_NAME))
+                    putString(TagGalleriesFragment.ARG_TAG_DISPLAY_NAME,
+                            intent.getStringExtra(TagGalleriesFragment.ARG_TAG_DISPLAY_NAME))
+
+                    putString(TagGalleriesFragment.ARG_TAG_NAME,
+                            intent.getStringExtra(TagGalleriesFragment.ARG_TAG_NAME))
                 }
             }
 

@@ -1,11 +1,8 @@
 package io.github.edgardobarriam.techkandroidchallenge.server
 
-import android.os.Parcel
-import android.os.Parcelable
+data class TagsListResponse(val data: TagsListData)
 
-data class TagsListResponse(val data: Data)
-
-data class Data(val tags: List<Tag>)
+data class TagsListData(val tags: List<Tag>)
 
 data class Tag(
         val id: Int,
@@ -18,64 +15,18 @@ data class Tag(
 
 data class GallerySearchResponse(val data: List<Gallery>)
 
-data class Gallery(val title: String, val datetime: Int, val views: Int, val ups: Int, val downs: Int, val images: List<Image> ) : Parcelable {
-    constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.createTypedArrayList(Image)) {
-    }
+data class Gallery(
+        val type: String?,
+        val title: String,
+        val description: String?,
+        val link: String,
+        val datetime: Long,
+        val views: Int,
+        val ups: Int,
+        val downs: Int,
+        val images: List<Image>? )
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(title)
-        parcel.writeInt(datetime)
-        parcel.writeInt(views)
-        parcel.writeInt(ups)
-        parcel.writeInt(downs)
-        parcel.writeTypedList(images)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<Gallery> {
-        override fun createFromParcel(parcel: Parcel): Gallery {
-            return Gallery(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Gallery?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
-
-data class Image(val link: String, val description: String) : Parcelable {
-
-    constructor(parcel: Parcel) : this(parcel.readString(), parcel.readString())
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(link)
-        parcel.writeString(description)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<Image> {
-        override fun createFromParcel(parcel: Parcel): Image {
-            return Image(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Image?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
-
+data class Image(val link: String, val type: String, val description: String?)
 
 data class GalleryCommentsResponse(val data: List<Comment>)
 

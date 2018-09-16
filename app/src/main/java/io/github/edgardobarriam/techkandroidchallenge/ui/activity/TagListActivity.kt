@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import io.github.edgardobarriam.techkandroidchallenge.R
-import io.github.edgardobarriam.techkandroidchallenge.ui.fragment.TagImagesFragment
+import io.github.edgardobarriam.techkandroidchallenge.ui.fragment.TagGalleriesFragment
 
 import io.github.edgardobarriam.techkandroidchallenge.server.ImgurApiService
 import io.github.edgardobarriam.techkandroidchallenge.server.Tag
@@ -25,7 +25,7 @@ import org.jetbrains.anko.toast
  * An activity representing a list of Pings. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a [TagImagesActivity] representing
+ * lead to a [TagGalleriesActivity] representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
@@ -85,6 +85,7 @@ class TagListActivity : AppCompatActivity() {
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, items, twoPane)
     }
 
+    //TODO: Move this adapter to other file
     class SimpleItemRecyclerViewAdapter(private val parentActivity: TagListActivity,
                                         private val values: List<Tag>,
                                         private val twoPane: Boolean) :
@@ -96,9 +97,10 @@ class TagListActivity : AppCompatActivity() {
             onClickListener = View.OnClickListener { v ->
                 val item = v.tag as Tag
                 if (twoPane) {
-                    val fragment = TagImagesFragment().apply {
+                    val fragment = TagGalleriesFragment().apply {
                         arguments = Bundle().apply {
-                            putString(TagImagesFragment.ARG_TAG_DISPLAY_NAME, item.display_name)
+                            putString(TagGalleriesFragment.ARG_TAG_DISPLAY_NAME, item.display_name)
+                            putString(TagGalleriesFragment.ARG_TAG_NAME, item.name)
                         }
                     }
                     parentActivity.supportFragmentManager
@@ -107,8 +109,9 @@ class TagListActivity : AppCompatActivity() {
                             .commit()
                 } else {
                     // Handheld
-                    val intent = Intent(v.context, TagImagesActivity::class.java).apply {
-                        putExtra(TagImagesFragment.ARG_TAG_DISPLAY_NAME, item.display_name)
+                    val intent = Intent(v.context, TagGalleriesActivity::class.java).apply {
+                        putExtra(TagGalleriesFragment.ARG_TAG_DISPLAY_NAME, item.display_name)
+                        putExtra(TagGalleriesFragment.ARG_TAG_NAME, item.name)
                     }
                     v.context.startActivity(intent)
                 }
@@ -134,7 +137,7 @@ class TagListActivity : AppCompatActivity() {
         override fun getItemCount() = values.size
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val tagDisplayName: TextView = view.textview_tag_name
+            val tagDisplayName: TextView = view.textView_tag_name
         }
     }
 }

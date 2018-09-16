@@ -30,7 +30,7 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".ui.activity.TagImagesActivity"
+            android:name=".ui.activity.TagGalleriesActivity"
             android:label="@string/title_tag_detail"
             android:parentActivityName=".ui.activity.TagListActivity"
             android:theme="@style/AppTheme">

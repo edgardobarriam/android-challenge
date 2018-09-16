@@ -7,12 +7,13 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ImgurApiService {
 
     @GET("tags") fun getDefaultTags(): Observable<TagsListResponse>
 
-    @GET("gallery/search/?q_tags={tag}") fun getTagGalleries( @Path("tag") tag: String ): Observable<List<GallerySearchResponse>>
+    @GET("gallery/search/") fun getTagGalleries(@Query("q_tags") q_tags: String ): Observable<GallerySearchResponse>
 
     @GET("gallery/{imageId}/comments/") fun getImageComments( @Path("imageId") imageId: String ): Observable<GalleryCommentsResponse>
 
