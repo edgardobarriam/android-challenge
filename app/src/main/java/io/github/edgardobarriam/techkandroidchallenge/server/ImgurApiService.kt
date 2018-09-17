@@ -15,7 +15,7 @@ interface ImgurApiService {
 
     @GET("gallery/search/") fun getTagGalleries(@Query("q_tags") q_tags: String ): Observable<GallerySearchResponse>
 
-    @GET("gallery/{imageId}/comments/") fun getImageComments( @Path("imageId") imageId: String ): Observable<GalleryCommentsResponse>
+    @GET("gallery/{imageId}/comments/") fun getGalleryComments(@Path("imageId") imageId: String ): Observable<GalleryCommentsResponse>
 
     // Singleton pattern
     companion object {

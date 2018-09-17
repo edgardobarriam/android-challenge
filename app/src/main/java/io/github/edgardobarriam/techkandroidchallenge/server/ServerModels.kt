@@ -19,6 +19,7 @@ data class Tag(
 data class GallerySearchResponse(val data: List<Gallery>)
 
 data class Gallery(
+        val id: String,
         var type: String?,
         val title: String,
         var description: String?,
@@ -28,8 +29,8 @@ data class Gallery(
         val ups: Int,
         val downs: Int,
         val images: List<Image>? ) : Parcelable {
-
     constructor(parcel: Parcel) : this(
+            parcel.readString(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
@@ -38,10 +39,10 @@ data class Gallery(
             parcel.readInt(),
             parcel.readInt(),
             parcel.readInt(),
-            parcel.createTypedArrayList(Image)) {
-    }
+            parcel.createTypedArrayList(Image))
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
         parcel.writeString(type)
         parcel.writeString(title)
         parcel.writeString(description)
