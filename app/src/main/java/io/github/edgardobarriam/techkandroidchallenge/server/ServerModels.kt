@@ -16,7 +16,9 @@ data class Tag(
         val background_hash: String )
 
 
-data class GallerySearchResponse(val data: List<Gallery>)
+data class GallerySearchResponse(val data: TagSearch)
+
+data class TagSearch(val name: String, val display_name: String, val items: List<Gallery>)
 
 data class Gallery(
         val id: String,

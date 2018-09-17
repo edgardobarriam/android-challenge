@@ -1,13 +1,12 @@
 package io.github.edgardobarriam.techkandroidchallenge.ui.activity
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
 import io.github.edgardobarriam.techkandroidchallenge.R
 import io.github.edgardobarriam.techkandroidchallenge.server.Comment
 import io.github.edgardobarriam.techkandroidchallenge.server.Gallery
-import io.github.edgardobarriam.techkandroidchallenge.server.GalleryCommentsResponse
 import io.github.edgardobarriam.techkandroidchallenge.server.ImgurApiService
 import io.github.edgardobarriam.techkandroidchallenge.ui.adapter.CommentsRecyclerViewAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -27,6 +26,7 @@ class GalleryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery)
         setSupportActionBar(toolbar)
+        supportActionBar?.title = "Gallery"
 
         val gallery = intent.getParcelableExtra<Gallery>(ARG_GALLERY)
 

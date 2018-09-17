@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,11 +18,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_tag_galleries.*
 import kotlinx.android.synthetic.main.fragment_tag_galleries_list.*
-import org.jetbrains.anko.singleTop
 import org.jetbrains.anko.support.v4.intentFor
-import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.toast
-import java.net.URLEncoder
 
 
 /**
@@ -56,7 +51,7 @@ class TagGalleriesFragment : Fragment() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        {result -> setupGalleriesRecycler(list_tag_galleries, result.data)},
+                        {result -> setupGalleriesRecycler(list_tag_galleries, result.data.items)},
                         {error -> Toast.makeText(context,error.message,Toast.LENGTH_LONG).show()}
                 )
     }
@@ -79,10 +74,6 @@ class TagGalleriesFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * The fragment argument representing the item ID that this fragment
-         * represents.
-         */
         const val ARG_TAG_DISPLAY_NAME = "tag_display_name"
         const val ARG_TAG_NAME = "tag_name"
     }
