@@ -2,25 +2,27 @@ package io.github.edgardobarriam.techkandroidchallenge.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import io.github.edgardobarriam.techkandroidchallenge.R
-import io.github.edgardobarriam.techkandroidchallenge.dummy.DummyContent
+import io.github.edgardobarriam.techkandroidchallenge.server.Gallery
 import io.github.edgardobarriam.techkandroidchallenge.server.ImgurApiService
+import io.github.edgardobarriam.techkandroidchallenge.ui.activity.GalleryActivity
 import io.github.edgardobarriam.techkandroidchallenge.ui.adapter.GalleriesRecyclerViewAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_tag_galleries.*
 import kotlinx.android.synthetic.main.fragment_tag_galleries_list.*
-import kotlinx.android.synthetic.main.tag_list.*
+import org.jetbrains.anko.singleTop
+import org.jetbrains.anko.support.v4.intentFor
+import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.RecyclerView
-import io.github.edgardobarriam.techkandroidchallenge.server.Gallery
 
 
 /**
@@ -44,8 +46,6 @@ class TagGalleriesFragment : Fragment() {
             if (it.containsKey(ARG_TAG_DISPLAY_NAME)) activity?.toolbar_layout?.title = it.getString(ARG_TAG_DISPLAY_NAME)
 
             if (it.containsKey(ARG_TAG_NAME)) imgurTag = it.getString(ARG_TAG_NAME)
-
-
         }
 
     }
@@ -61,8 +61,12 @@ class TagGalleriesFragment : Fragment() {
     }
 
     fun setupGalleriesRecycler(recycler: RecyclerView, data: List<Gallery>) {
-        list_tag_galleries.adapter = GalleriesRecyclerViewAdapter(context!!,data)
-        list_tag_galleries.addItemDecoration(DividerItemDecoration(list_tag_galleries.context, DividerItemDecoration.VERTICAL))
+        recycler.adapter = GalleriesRecyclerViewAdapter(context!!,data) {
+            // onClick
+            startActivity( intentFor<GalleryActivity>(GalleryActivity.ARG_GALLERY to it) )
+        }
+
+        recycler.addItemDecoration(DividerItemDecoration(list_tag_galleries.context, DividerItemDecoration.VERTICAL))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-
         <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTop">
@@ -23,12 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activity.TagListActivity"
             android:label="@string/title_tag_list"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".ui.activity.TagGalleriesActivity"
             android:label="@string/title_tag_detail"
@@ -38,7 +35,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.edgardobarriam.techkandroidchallenge.ui.activity.TagListActivity" />
         </activity>
-
+        <activity
+            android:name=".ui.activity.GalleryActivity"
+            android:label="@string/title_activity_gallery"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

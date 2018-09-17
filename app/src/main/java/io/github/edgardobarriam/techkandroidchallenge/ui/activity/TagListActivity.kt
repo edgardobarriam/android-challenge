@@ -67,8 +67,6 @@ class TagListActivity : AppCompatActivity() {
             twoPane = true
         }
 
-
-
         fetchTagsFromApi()
     }
 
