@@ -19,10 +19,10 @@ data class Tag(
 data class GallerySearchResponse(val data: List<Gallery>)
 
 data class Gallery(
-        val type: String?,
+        var type: String?,
         val title: String,
-        val description: String?,
-        val link: String,
+        var description: String?,
+        var link: String,
         val datetime: Long,
         val views: Int,
         val ups: Int,

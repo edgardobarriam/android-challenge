@@ -23,29 +23,15 @@ class GalleryActivity : AppCompatActivity() {
             textView_upvotes.text = ups.toString()
             textView_downvotes.text = downs.toString()
             textView_views.text = views.toString()
+            textView_gallery_description.text = description
 
-            if(images == null) {
-
-                textView_gallery_description.text = description
-                when(type) {
-                    "image/jpeg" ->Glide.with(activity).load(link).into(imageView_image)
-                    "image/png" -> Glide.with(activity).load(link).into(imageView_image)
-                    "image/gif" -> Glide.with(activity).asGif().load(link).into(imageView_image)
-                    else -> imageView_image.setImageResource(R.drawable.video_placeholder)
-                }
-
-            } else {
-
-                val firstImage = images[0]
-                textView_gallery_description.text = firstImage.description
-
-                when(firstImage.type) {
-                    "image/jpeg" -> Glide.with(activity).load(firstImage.link).into(imageView_image)
-                    "image/png" -> Glide.with(activity).load(firstImage.link).into(imageView_image)
-                    "image/gif" -> Glide.with(activity).asGif().load(firstImage.link).into(imageView_image)
-                    else -> imageView_image.setImageResource(R.drawable.video_placeholder)
-                }
+            when(type) {
+                "image/jpeg" ->Glide.with(activity).load(link).into(imageView_image)
+                "image/png" -> Glide.with(activity).load(link).into(imageView_image)
+                "image/gif" -> Glide.with(activity).asGif().load(link).into(imageView_image)
+                else -> imageView_image.setImageResource(R.drawable.not_available)
             }
+
         }
 
 

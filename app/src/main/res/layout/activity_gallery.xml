@@ -35,13 +35,13 @@
 
             <TextView
                 android:id="@+id/textView_gallery_title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:textAlignment="center"
-                android:textSize="24sp"
+                android:textSize="26sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -57,7 +57,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_gallery_title"
-                app:srcCompat="@android:drawable/ic_delete" />
+                app:srcCompat="@drawable/not_available" />
 
             <TextView
                 android:id="@+id/textView_upvotes"
@@ -66,30 +66,31 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView_image"
-                tools:text="upvotes" />
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView"
+                tools:text="10" />
 
             <TextView
                 android:id="@+id/textView_downvotes"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/textView_upvotes"
-                app:layout_constraintTop_toTopOf="@+id/textView_upvotes"
-                tools:text="downvotes" />
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="@+id/imageView2"
+                tools:text="5" />
 
             <TextView
                 android:id="@+id/textView_views"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="8dp"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView_image"
-                tools:text="views" />
+                app:layout_constraintTop_toTopOf="@+id/imageView3"
+                tools:text="100" />
 
             <TextView
                 android:id="@+id/textView_gallery_description"
@@ -98,10 +99,41 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="64dp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView_image"
                 tools:text="Ever wondered how large enterprise scale systems are designed? Before major software development starts, we have to choose a suitable architecture that will provide us with the desired functionality and quality attributes. Hence, we should understand different architectures, before applying them to our design." />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_image"
+                app:srcCompat="@drawable/vote_up" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toEndOf="@+id/textView_upvotes"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_image"
+                app:srcCompat="@drawable/vote_down" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/textView_views"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_image"
+                app:srcCompat="@drawable/views" />
 
         </android.support.constraint.ConstraintLayout>
 

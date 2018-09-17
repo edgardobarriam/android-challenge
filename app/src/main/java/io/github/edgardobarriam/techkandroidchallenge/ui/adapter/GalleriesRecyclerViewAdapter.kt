@@ -5,9 +5,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import io.github.edgardobarriam.techkandroidchallenge.R
 import io.github.edgardobarriam.techkandroidchallenge.server.Gallery
@@ -54,29 +51,19 @@ class GalleriesRecyclerViewAdapter(val context: Context,
                 itemView.textView_gallery_datetime.text = convertToDateTime(datetime)
                 itemView.setOnClickListener { itemClick(this) }
 
-                // TODO: Refactor this
-                if(images == null ) {
-                    itemView.textView_gallery_description.text = description
+                if(images != null) {
+                    description = images[0].description
+                    link = images[0].link
+                    type = images[0].type
 
-                    when(type) {
-                        "image/jpeg" ->Glide.with(context).load(link).into(itemView.imageView_gallery_preview)
+                    itemView.textView_gallery_description.text = description
+                    when (type) {
+                        "image/jpeg" -> Glide.with(context).load(link).into(itemView.imageView_gallery_preview)
                         "image/png" -> Glide.with(context).load(link).into(itemView.imageView_gallery_preview)
                         "image/gif" -> Glide.with(context).asGif().load(link).into(itemView.imageView_gallery_preview)
-                        else -> itemView.imageView_gallery_preview.setImageResource(R.drawable.video_placeholder)
-                    }
-
-                } else {
-                    val firstImage = images[0]
-                    itemView.textView_gallery_description.text = firstImage.description
-
-                    when(firstImage.type) {
-                        "image/jpeg" -> Glide.with(context).load(firstImage.link).into(itemView.imageView_gallery_preview)
-                        "image/png" -> Glide.with(context).load(firstImage.link).into(itemView.imageView_gallery_preview)
-                        "image/gif" -> Glide.with(context).asGif().load(firstImage.link).into(itemView.imageView_gallery_preview)
-                        else -> itemView.imageView_gallery_preview.setImageResource(R.drawable.video_placeholder)
+                        else -> itemView.imageView_gallery_preview.setImageResource(R.drawable.not_available)
                     }
                 }
-
             }
         }
 
