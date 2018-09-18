@@ -13,7 +13,7 @@ interface ImgurApiService {
 
     @GET("tags") fun getDefaultTags(): Observable<TagsListResponse>
 
-    @GET("gallery/t/{tag}/") fun getTagGalleries(@Path("tag") tag: String ): Observable<GallerySearchResponse> //TODO: update endpoint and usage
+    @GET("gallery/t/{tag}/") fun getTagGalleries(@Path("tag") tag: String ): Observable<GallerySearchResponse>
 
     @GET("gallery/{imageId}/comments/") fun getGalleryComments(@Path("imageId") imageId: String ): Observable<GalleryCommentsResponse>
 

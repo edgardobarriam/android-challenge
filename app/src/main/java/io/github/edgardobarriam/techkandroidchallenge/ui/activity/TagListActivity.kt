@@ -4,26 +4,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import io.github.edgardobarriam.techkandroidchallenge.R
-import io.github.edgardobarriam.techkandroidchallenge.ui.fragment.TagGalleriesFragment
-
 import io.github.edgardobarriam.techkandroidchallenge.server.ImgurApiService
 import io.github.edgardobarriam.techkandroidchallenge.server.Tag
+import io.github.edgardobarriam.techkandroidchallenge.server.TagSearch
 import io.github.edgardobarriam.techkandroidchallenge.ui.adapter.TagsRecyclerViewAdapter
+import io.github.edgardobarriam.techkandroidchallenge.ui.fragment.TagGalleriesFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_tag_list.*
-import kotlinx.android.synthetic.main.tag_list_content.view.*
 import kotlinx.android.synthetic.main.tag_list.*
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 
 /**
- * An activity representing a list of Pings. This activity
+ * An activity representing a list of Tags. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
  * lead to a [TagGalleriesActivity] representing
@@ -52,19 +48,38 @@ class TagListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tag_list)
 
-        setSupportActionBar(toolbar)
-        toolbar.title = title
-
-        fab.setOnClickListener { view ->
-            // TODO: Search
-        }
-
-        if (tag_detail_container != null) {
+        if (tag_galleries_container != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
             // If this view is present, then the
             // activity should be in two-pane mode.
             twoPane = true
+        }
+
+        setSupportActionBar(toolbar)
+        toolbar.title = title
+
+        fab.setOnClickListener { view ->
+            // Search
+
+            alert{
+                title = "Search a Tag"
+                customView {
+                    val searchTag = editText()
+
+                    positiveButton("Search") {
+                        if(!searchTag.text.isEmpty()) {
+                            fetchCustomTagGalleries(view, searchTag.text.toString())
+                        }
+                    }
+
+                    negativeButton("Cancel"){}
+                }
+
+
+            }.show()
+
+
         }
 
         fetchTagsFromApi()
@@ -76,8 +91,42 @@ class TagListActivity : AppCompatActivity() {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 {result -> setupRecyclerView(tag_list, result.data.tags)},
-                                {error -> toast(error.message.toString())}
+                                {error -> toast(error.message!!)}
                         )
+    }
+
+    fun fetchCustomTagGalleries(view: View, customTag: String) {
+        disposable = imgurApiService.getTagGalleries(customTag)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {result ->
+                            loadTagGalleries(result.data,twoPane)
+                        },
+                        {error -> toast(error.message!!)}
+                )
+    }
+
+    fun loadTagGalleries(tagSearch: TagSearch, twoPane: Boolean) {
+        if (twoPane) {
+            val fragment = TagGalleriesFragment().apply {
+                arguments = Bundle().apply {
+                    putString(TagGalleriesFragment.ARG_TAG_DISPLAY_NAME, tagSearch.display_name)
+                    putString(TagGalleriesFragment.ARG_TAG_NAME, tagSearch.name)
+                }
+            }
+            this.supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.tag_galleries_container, fragment)
+                    .commit()
+        } else {
+            // Handheld
+            val intent = Intent(this, TagGalleriesActivity::class.java).apply {
+                putExtra(TagGalleriesFragment.ARG_TAG_DISPLAY_NAME, tagSearch.display_name)
+                putExtra(TagGalleriesFragment.ARG_TAG_NAME, tagSearch.name)
+            }
+            startActivity(intent)
+        }
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView, items : List<Tag>) {

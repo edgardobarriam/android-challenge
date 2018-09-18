@@ -56,7 +56,7 @@ class TagGalleriesActivity : AppCompatActivity() {
             }
 
             supportFragmentManager.beginTransaction()
-                    .add(R.id.tag_detail_container, fragment)
+                    .add(R.id.tag_galleries_container, fragment)
                     .commit()
         }
     }

@@ -33,7 +33,7 @@ class TagsRecyclerViewAdapter(private val parentActivity: TagListActivity,
                 }
                 parentActivity.supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.tag_detail_container, fragment)
+                        .replace(R.id.tag_galleries_container, fragment)
                         .commit()
             } else {
                 // Handheld

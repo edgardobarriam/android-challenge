@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import io.github.edgardobarriam.techkandroidchallenge.R
 import io.github.edgardobarriam.techkandroidchallenge.server.Gallery
 import io.github.edgardobarriam.techkandroidchallenge.server.ImgurApiService
@@ -19,6 +18,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_tag_galleries.*
 import kotlinx.android.synthetic.main.fragment_tag_galleries_list.*
 import org.jetbrains.anko.support.v4.intentFor
+import org.jetbrains.anko.support.v4.toast
 
 
 /**
@@ -46,13 +46,21 @@ class TagGalleriesFragment : Fragment() {
 
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_tag_galleries_list, container, false)
+
+        fetchGalleries(imgurTag)
+        return rootView
+    }
+
     fun fetchGalleries(tag: String) {
         disposable = imgurApiService.getTagGalleries(tag)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {result -> setupGalleriesRecycler(list_tag_galleries, result.data.items)},
-                        {error -> Toast.makeText(context,error.message,Toast.LENGTH_LONG).show()}
+                        {error -> toast(error.message!!)}
                 )
     }
 
@@ -63,14 +71,6 @@ class TagGalleriesFragment : Fragment() {
         }
 
         recycler.addItemDecoration(DividerItemDecoration(list_tag_galleries.context, DividerItemDecoration.VERTICAL))
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_tag_galleries_list, container, false)
-
-        fetchGalleries(imgurTag)
-        return rootView
     }
 
     companion object {
