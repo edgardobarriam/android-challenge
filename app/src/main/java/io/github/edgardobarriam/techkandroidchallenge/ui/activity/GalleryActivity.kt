@@ -31,7 +31,7 @@ class GalleryActivity : AppCompatActivity() {
         val gallery = intent.getParcelableExtra<Gallery>(ARG_GALLERY)
 
         displayGallery(gallery)
-        displayComments(gallery)
+        loadComments(gallery)
 
     }
 
@@ -54,14 +54,14 @@ class GalleryActivity : AppCompatActivity() {
         }
     }
 
-    fun displayComments(gallery: Gallery) {
+    fun loadComments(gallery: Gallery) {
         disposable = imgurApiService.getGalleryComments(gallery.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {result ->
                             if(result.data.isEmpty()) {
-                                toast("No comments!!!!!!")
+                                toast("No comments!")
                             } else {
                                 setupCommentsRecycler(result.data)
                             }

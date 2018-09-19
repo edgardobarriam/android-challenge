@@ -31,6 +31,7 @@ data class Gallery(
         val ups: Int,
         val downs: Int,
         val images: List<Image>? ) : Parcelable {
+
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
