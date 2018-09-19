@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/list_tag_galleries"
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/button_search_galleries"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/colorAccent"
+        android:text="Search Galleries"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/list_tag_galleries"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
+</LinearLayout>

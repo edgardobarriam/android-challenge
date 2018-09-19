@@ -25,11 +25,6 @@ class TagGalleriesActivity : AppCompatActivity() {
         val tagName = intent.getStringExtra(TagGalleriesFragment.ARG_TAG_DISPLAY_NAME)
         supportActionBar?.title = tagName
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
-
         // Show the Up button in the action bar.
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

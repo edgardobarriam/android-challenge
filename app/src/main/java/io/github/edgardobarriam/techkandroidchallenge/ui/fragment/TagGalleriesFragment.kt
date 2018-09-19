@@ -17,8 +17,13 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_tag_galleries.*
 import kotlinx.android.synthetic.main.fragment_tag_galleries_list.*
+import org.jetbrains.anko.customView
+import org.jetbrains.anko.editText
+import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.intentFor
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.verticalLayout
 
 
 /**
@@ -34,14 +39,14 @@ class TagGalleriesFragment : Fragment() {
     }
     var disposable: Disposable? = null
     var imgurTag : String = ""
+    var listGalleries : List<Gallery>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            if (it.containsKey(ARG_TAG_DISPLAY_NAME)) activity?.toolbar_layout?.title = it.getString(ARG_TAG_DISPLAY_NAME)
-
-            if (it.containsKey(ARG_TAG_NAME)) imgurTag = it.getString(ARG_TAG_NAME)
+            if ( it.containsKey(ARG_TAG_DISPLAY_NAME) ) activity?.toolbar_layout?.title = it.getString(ARG_TAG_DISPLAY_NAME)
+            if ( it.containsKey(ARG_TAG_NAME) ) imgurTag = it.getString(ARG_TAG_NAME)
         }
 
     }
@@ -50,8 +55,44 @@ class TagGalleriesFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_tag_galleries_list, container, false)
 
+
+
         fetchGalleries(imgurTag)
         return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        button_search_galleries.onClick {
+
+            alert {
+                title = "Seach a Gallery"
+                customView {
+
+                    verticalLayout {
+                        val inputTitle = editText{hint = "Title"}
+                        val inputDescription = editText{hint= "Description"}
+
+                        positiveButton("Search") {
+                            val result = searchGallery(listGalleries!!, inputTitle.text.toString(), inputDescription.text.toString())
+                            setupGalleriesRecycler(list_tag_galleries, result)
+                        }
+
+                        negativeButton("Cancel") {}
+                    }
+                }
+            }.show()
+        }
+
+    }
+
+    //TODO: Needs refactor and probably move to another file
+    fun searchGallery(list: List<Gallery>, title: String, description: String) : List<Gallery> {
+        return list.filter {
+            it.title.contains(title, true)
+            && it.description!!.contains(description,true)
+        }
     }
 
     fun fetchGalleries(tag: String) {
@@ -59,7 +100,10 @@ class TagGalleriesFragment : Fragment() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        {result -> setupGalleriesRecycler(list_tag_galleries, result.data.items)},
+                        {result ->
+                            listGalleries = result.data.items
+                            setupGalleriesRecycler(list_tag_galleries, listGalleries!!)
+                        },
                         {error -> toast(error.message!!)}
                 )
     }
