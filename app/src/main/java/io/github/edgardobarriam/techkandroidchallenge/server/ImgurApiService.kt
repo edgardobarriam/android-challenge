@@ -1,13 +1,13 @@
 package io.github.edgardobarriam.techkandroidchallenge.server
 
 import io.reactivex.Observable
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ImgurApiService {
 
@@ -17,10 +17,13 @@ interface ImgurApiService {
 
     @GET("gallery/{imageId}/comments/") fun getGalleryComments(@Path("imageId") imageId: String ): Observable<GalleryCommentsResponse>
 
-    // Singleton pattern
+    @Multipart
+    @POST("image") fun postImage(@Part image: MultipartBody.Part, @Part("title") title: RequestBody) : Observable<UploadResponse>
+
+    // Singleton
     companion object {
         private const val IMGUR_ACCESS_TOKEN = "Client-ID 4fc5fe45f24ef4a"
-
+        private const val API_URL = "https://api.imgur.com/3/"
         fun getInstance(): ImgurApiService {
 
             // Add Authorization header to all requests
@@ -33,7 +36,7 @@ interface ImgurApiService {
                     .build()
 
             val retrofit = Retrofit.Builder()
-                    .baseUrl("https://api.imgur.com/3/")
+                    .baseUrl(API_URL)
                     .client(httpClient)
                     .addCallAdapterFactory(
                             RxJava2CallAdapterFactory.create())

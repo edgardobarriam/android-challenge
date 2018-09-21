@@ -1,4 +1,4 @@
-package io.github.edgardobarriam.techkandroidchallenge.ui.activity
+package io.github.edgardobarriam.techkandroidchallenge.ui
 
 import io.github.edgardobarriam.techkandroidchallenge.server.Gallery
 

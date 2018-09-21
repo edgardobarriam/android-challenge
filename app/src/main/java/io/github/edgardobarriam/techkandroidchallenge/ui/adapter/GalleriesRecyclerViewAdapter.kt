@@ -51,12 +51,6 @@ class GalleriesRecyclerViewAdapter(val context: Context,
                 itemView.textView_gallery_datetime.text = convertToDateTime(datetime)
                 itemView.setOnClickListener { itemClick(this) }
 
-                if(images != null) {
-                    description = images[0].description
-                    link = images[0].link
-                    type = images[0].type
-                }
-
                 itemView.textView_gallery_description.text = description
                 when (type) {
                     "image/jpeg" -> Glide.with(context).load(link).into(itemView.imageView_gallery_preview)

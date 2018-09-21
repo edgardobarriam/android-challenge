@@ -3,7 +3,6 @@ package io.github.edgardobarriam.techkandroidchallenge.ui.fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import io.github.edgardobarriam.techkandroidchallenge.R
 import io.github.edgardobarriam.techkandroidchallenge.server.Gallery
 import io.github.edgardobarriam.techkandroidchallenge.server.ImgurApiService
 import io.github.edgardobarriam.techkandroidchallenge.ui.activity.GalleryActivity
-import io.github.edgardobarriam.techkandroidchallenge.ui.activity.GallerySearch
+import io.github.edgardobarriam.techkandroidchallenge.ui.GallerySearch
 import io.github.edgardobarriam.techkandroidchallenge.ui.adapter.GalleriesRecyclerViewAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -103,6 +102,7 @@ class TagGalleriesFragment : Fragment() {
                 .subscribe(
                         {result ->
                             listGalleries = result.data.items
+                            listGalleries!!.forEach { it.fixGallery() }
                             setupGalleriesRecycler(listGalleries!!)
                         },
                         {error -> toast(error.message!!)}

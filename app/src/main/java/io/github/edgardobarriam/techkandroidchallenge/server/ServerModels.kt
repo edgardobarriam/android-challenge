@@ -61,6 +61,16 @@ data class Gallery(
         return 0
     }
 
+    fun fixGallery() {
+        with(this) {
+            if(images != null) {
+                description = images[0].description
+                link = images[0].link
+                type = images[0].type
+            }
+        }
+    }
+
     companion object CREATOR : Parcelable.Creator<Gallery> {
         override fun createFromParcel(parcel: Parcel): Gallery {
             return Gallery(parcel)
@@ -106,3 +116,7 @@ data class Image(val link: String, val type: String, val description: String?) :
 data class GalleryCommentsResponse(val data: List<Comment>)
 
 data class Comment(val author: String, val comment: String)
+
+data class UploadResponse(val data : UploadResponseData)
+
+data class UploadResponseData(val link: String)

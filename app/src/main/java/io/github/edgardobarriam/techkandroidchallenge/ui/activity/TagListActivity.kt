@@ -101,6 +101,7 @@ class TagListActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {result ->
+                            result.data.items.forEach { it.fixGallery() }
                             loadTagGalleries(result.data,twoPane)
                         },
                         {error -> toast(error.message!!)}
