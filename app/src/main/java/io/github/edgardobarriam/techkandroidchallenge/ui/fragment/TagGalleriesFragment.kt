@@ -10,7 +10,7 @@ import io.github.edgardobarriam.techkandroidchallenge.R
 import io.github.edgardobarriam.techkandroidchallenge.server.Gallery
 import io.github.edgardobarriam.techkandroidchallenge.server.ImgurApiService
 import io.github.edgardobarriam.techkandroidchallenge.ui.activity.GalleryActivity
-import io.github.edgardobarriam.techkandroidchallenge.ui.GallerySearch
+import io.github.edgardobarriam.techkandroidchallenge.ui.util.GallerySearch
 import io.github.edgardobarriam.techkandroidchallenge.ui.adapter.GalleriesRecyclerViewAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -80,7 +80,7 @@ class TagGalleriesFragment : Fragment() {
                             val title = inputTitle.text.toString()
                             val description = inputDescription.text.toString()
 
-                            listGalleries = GallerySearch().search(listGalleries!!, title, description)
+                            listGalleries = GallerySearch.search(listGalleries!!, title, description)
 
                             if(listGalleries!!.isNotEmpty()) {
                                 setupGalleriesRecycler(listGalleries!!)

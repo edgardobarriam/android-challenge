@@ -9,6 +9,7 @@ import io.github.edgardobarriam.techkandroidchallenge.server.Comment
 import io.github.edgardobarriam.techkandroidchallenge.server.Gallery
 import io.github.edgardobarriam.techkandroidchallenge.server.ImgurApiService
 import io.github.edgardobarriam.techkandroidchallenge.ui.adapter.CommentsRecyclerViewAdapter
+import io.github.edgardobarriam.techkandroidchallenge.ui.util.ImageDisplayHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -36,21 +37,13 @@ class GalleryActivity : AppCompatActivity() {
     }
 
     fun displayGallery(gallery: Gallery) {
-        //TODO: Refactor this
         with(gallery) {
             textView_gallery_title.text = title
             textView_upvotes.text = ups.toString()
             textView_downvotes.text = downs.toString()
             textView_views.text = views.toString()
             textView_gallery_description.text = description
-
-            when(type) {
-                "image/jpeg" ->Glide.with(activity).load(link).into(imageView_image)
-                "image/png" -> Glide.with(activity).load(link).into(imageView_image)
-                "image/gif" -> Glide.with(activity).asGif().load(link).into(imageView_image)
-                else -> imageView_image.setImageResource(R.drawable.not_available)
-            }
-
+            ImageDisplayHelper.displayImage(this, imageView_image, activity)
         }
     }
 

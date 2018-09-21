@@ -1,8 +1,8 @@
-package io.github.edgardobarriam.techkandroidchallenge.ui
+package io.github.edgardobarriam.techkandroidchallenge.ui.util
 
 import io.github.edgardobarriam.techkandroidchallenge.server.Gallery
 
-class GallerySearch {
+object GallerySearch {
 
     fun search(list: List<Gallery>, title: String = "", description: String = "") : List<Gallery> {
 
