@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.activity_tag_galleries.*
 import kotlinx.android.synthetic.main.fragment_tag_galleries_list.*
 import org.jetbrains.anko.customView
 import org.jetbrains.anko.editText
-import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.intentFor
 import org.jetbrains.anko.support.v4.toast
@@ -36,9 +35,15 @@ class GalleriesFragment : Fragment() {
     private val imgurApiService by lazy {
         ImgurApiService.getInstance()
     }
-    var disposable: Disposable? = null
-    var imgurTag : String = ""
-    var listGalleries : List<Gallery>? = null
+    var disposableRequest: Disposable? = null
+
+    lateinit var imgurTag : String
+    lateinit var listGalleries : List<Gallery>
+
+    override fun onPause() {
+        super.onPause()
+        disposableRequest?.dispose()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,14 +52,11 @@ class GalleriesFragment : Fragment() {
             if ( it.containsKey(ARG_TAG_DISPLAY_NAME) ) activity?.toolbar_layout?.title = it.getString(ARG_TAG_DISPLAY_NAME)
             if ( it.containsKey(ARG_TAG_NAME) ) imgurTag = it.getString(ARG_TAG_NAME)
         }
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_tag_galleries_list, container, false)
-
-
 
         fetchGalleries(imgurTag)
         return rootView
@@ -62,55 +64,51 @@ class GalleriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         recyclerView_galleries.addItemDecoration(DividerItemDecoration(recyclerView_galleries.context, DividerItemDecoration.VERTICAL))
-
-
-        button_search_galleries.onClick {
-
-            alert {
-                title = "Seach a Gallery"
-                customView {
-
-                    verticalLayout {
-                        val inputTitle = editText{hint = "Title"}
-                        val inputDescription = editText{hint = "Description"}
-
-                        positiveButton("Search") {
-                            val title = inputTitle.text.toString()
-                            val description = inputDescription.text.toString()
-
-                            listGalleries = GallerySearch.search(listGalleries!!, title, description)
-
-                            if(listGalleries!!.isNotEmpty()) {
-                                setupGalleriesRecycler(listGalleries!!)
-                            }
-                        }
-
-                        negativeButton("Cancel") {}
-                    }
-                }
-            }.show()
-        }
-
+        button_search_galleries.setOnClickListener { showSearchDialog() }
     }
 
-    fun fetchGalleries(tag: String) {
-        disposable = imgurApiService.getTagGalleries(tag)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+    private fun showSearchDialog() {
+        alert { title = "Seach a Gallery"
+            customView {
+                verticalLayout {
+                    val titleInput = editText{hint = "Title"}
+                    val descriptionInput = editText{hint = "Description"}
+
+                    positiveButton("Search") {
+                        val title = titleInput.text.toString()
+                        val description = descriptionInput.text.toString()
+
+                        listGalleries = GallerySearch.search(listGalleries, title, description)
+
+                        if(listGalleries.isNotEmpty()) {
+                            setupGalleriesRecycler(listGalleries)
+                        }
+                    }
+
+                    negativeButton("Cancel") {}
+                }
+            }
+        }.show()
+    }
+
+    private fun fetchGalleries(tag: String) {
+        disposableRequest = imgurApiService.getTagGalleries(tag).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {result ->
                             listGalleries = result.data.items
-                            listGalleries!!.forEach { it.fixGallery() }
-                            setupGalleriesRecycler(listGalleries!!)
+                            listGalleries.forEach { it.fixGallery() }
+
+                            setupGalleriesRecycler(listGalleries)
                         },
                         {error -> toast(error.message!!)}
                 )
     }
 
-    fun setupGalleriesRecycler(data: List<Gallery>) {
+    private fun setupGalleriesRecycler(data: List<Gallery>) {
         recyclerView_galleries.adapter = GalleriesRecyclerViewAdapter(context!!,data) {
-            // onClick
+            // onClickListener
             startActivity( intentFor<GalleryActivity>(GalleryActivity.ARG_GALLERY to it) )
         }
 

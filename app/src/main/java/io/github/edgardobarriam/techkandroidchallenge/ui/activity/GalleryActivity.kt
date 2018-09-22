@@ -64,7 +64,7 @@ class GalleryActivity : AppCompatActivity() {
                                 setupCommentsRecycler(result.data)
                             }
                         },
-                        {error -> toast(error.message.toString())}
+                        {error -> toast(error.message!!)}
                 )
     }
 
