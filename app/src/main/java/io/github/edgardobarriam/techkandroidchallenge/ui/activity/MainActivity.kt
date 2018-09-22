@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
 
         button_gallery.onClick { startActivity<TagListActivity>() }
         button_upload.onClick { startActivity<UploadActivity>() }
-        button_settings.onClick { startActivity<GalleryActivity>() }
         button_exit.onClick { finish() }
     }
 

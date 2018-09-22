@@ -63,7 +63,7 @@ class TagGalleriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        list_tag_galleries.addItemDecoration(DividerItemDecoration(list_tag_galleries.context, DividerItemDecoration.VERTICAL))
+        recyclerView_galleries.addItemDecoration(DividerItemDecoration(recyclerView_galleries.context, DividerItemDecoration.VERTICAL))
 
 
         button_search_galleries.onClick {
@@ -110,7 +110,7 @@ class TagGalleriesFragment : Fragment() {
     }
 
     fun setupGalleriesRecycler(data: List<Gallery>) {
-        list_tag_galleries.adapter = GalleriesRecyclerViewAdapter(context!!,data) {
+        recyclerView_galleries.adapter = GalleriesRecyclerViewAdapter(context!!,data) {
             // onClick
             startActivity( intentFor<GalleryActivity>(GalleryActivity.ARG_GALLERY to it) )
         }

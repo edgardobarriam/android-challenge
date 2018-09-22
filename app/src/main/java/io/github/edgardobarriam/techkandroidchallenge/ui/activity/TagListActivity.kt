@@ -56,7 +56,7 @@ class TagListActivity : AppCompatActivity() {
 
         fetchDefaultTags()
 
-        fab.setOnClickListener { showTagSearchDialog() }
+        floatingActionButton_search_tag.setOnClickListener { showTagSearchDialog() }
     }
 
     private fun fetchDefaultTags() {
@@ -71,7 +71,7 @@ class TagListActivity : AppCompatActivity() {
     }
 
     private fun setupTagsList(items : List<Tag>) {
-        tag_list.adapter = TagsRecyclerViewAdapter(this, items, twoPane)
+        recyclerView_tag_list.adapter = TagsRecyclerViewAdapter(this, items, twoPane)
     }
 
 
@@ -79,10 +79,10 @@ class TagListActivity : AppCompatActivity() {
         alert{ title = "Search a Tag"
 
             customView {
-                val tagInput = editText()
+                val tagInput = editText() {hint = "Tag"}
 
                 positiveButton("Search") {
-                    if( !tagInput.text.isEmpty() ) {
+                    if( tagInput.text.isNotBlank() ) {
                         fetchCustomTagGalleries(tagInput.text.toString())
                     }
                 }

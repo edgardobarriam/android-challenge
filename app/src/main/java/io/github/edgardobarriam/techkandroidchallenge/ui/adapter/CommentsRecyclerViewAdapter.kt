@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.edgardobarriam.techkandroidchallenge.R
 import io.github.edgardobarriam.techkandroidchallenge.server.Comment
-import kotlinx.android.synthetic.main.comment_list_content.view.*
+import kotlinx.android.synthetic.main.comment_list_item.view.*
 
 class CommentsRecyclerViewAdapter(val comments: List<Comment>) : RecyclerView.Adapter<CommentsRecyclerViewAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.comment_list_content, parent, false)
+                .inflate(R.layout.comment_list_item, parent, false)
         return ViewHolder(view)
     }
 

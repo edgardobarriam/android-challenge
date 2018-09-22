@@ -3,7 +3,6 @@ package io.github.edgardobarriam.techkandroidchallenge.ui.activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
-import com.bumptech.glide.Glide
 import io.github.edgardobarriam.techkandroidchallenge.R
 import io.github.edgardobarriam.techkandroidchallenge.server.Comment
 import io.github.edgardobarriam.techkandroidchallenge.server.Gallery
@@ -38,11 +37,11 @@ class GalleryActivity : AppCompatActivity() {
 
     fun displayGallery(gallery: Gallery) {
         with(gallery) {
-            textView_gallery_title.text = title
+            textView_title.text = title
             textView_upvotes.text = ups.toString()
             textView_downvotes.text = downs.toString()
             textView_views.text = views.toString()
-            textView_gallery_description.text = description
+            textView_description.text = description
             ImageDisplayHelper.displayImage(this, imageView_image, activity)
         }
     }
@@ -64,8 +63,8 @@ class GalleryActivity : AppCompatActivity() {
     }
 
     fun setupCommentsRecycler(comments: List<Comment>) {
-        recyclerView_gallery_comments.adapter = CommentsRecyclerViewAdapter(comments)
-        recyclerView_gallery_comments.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+        recyclerView_comments.adapter = CommentsRecyclerViewAdapter(comments)
+        recyclerView_comments.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
     }
 
     companion object {

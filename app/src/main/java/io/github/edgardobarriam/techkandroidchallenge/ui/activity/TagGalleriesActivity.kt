@@ -2,7 +2,6 @@ package io.github.edgardobarriam.techkandroidchallenge.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import io.github.edgardobarriam.techkandroidchallenge.R
@@ -11,16 +10,16 @@ import kotlinx.android.synthetic.main.activity_tag_galleries.*
 
 /**
  * An activity representing a single Tag detail screen. This
- * activity is only used on narrow width devices. On tablet-size devices,
- * item details are presented side-by-side with a list of items
- * in a [TagListActivity].
+ * activity is only used on narrow width devices.
  */
 class TagGalleriesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tag_galleries)
-        setSupportActionBar(detail_toolbar)
+        setSupportActionBar(toolbar)
+
+        //TODO: Refactor this file
 
         val tagName = intent.getStringExtra(TagGalleriesFragment.ARG_TAG_DISPLAY_NAME)
         supportActionBar?.title = tagName

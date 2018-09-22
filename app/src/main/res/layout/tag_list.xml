@@ -2,7 +2,7 @@
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tag_list"
+    android:id="@+id/recyclerView_tag_list"
     android:name="io.github.edgardobarriam.techkandroidchallenge.TagListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,4 +10,4 @@
     android:layout_marginRight="16dp"
     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
     tools:context=".ui.activity.TagListActivity"
-    tools:listitem="@layout/tag_list_content" />
+    tools:listitem="@layout/tag_list_item" />

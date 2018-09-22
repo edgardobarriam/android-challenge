@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import io.github.edgardobarriam.techkandroidchallenge.R
 import io.github.edgardobarriam.techkandroidchallenge.server.Gallery
-import kotlinx.android.synthetic.main.gallery_list_content.view.*
+import kotlinx.android.synthetic.main.gallery_list_item.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,7 +19,7 @@ class GalleriesRecyclerViewAdapter(val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.gallery_list_content, parent, false)
+                .inflate(R.layout.gallery_list_item, parent, false)
 
         return ViewHolder(view, itemClick)
     }
@@ -47,16 +47,16 @@ class GalleriesRecyclerViewAdapter(val context: Context,
 
         fun bindGallery(gallery: Gallery) {
             with(gallery) {
-                itemView.textView_gallery_title.text = title
+                itemView.textView_title.text = title
                 itemView.textView_gallery_datetime.text = convertToDateTime(datetime)
                 itemView.setOnClickListener { itemClick(this) }
 
-                itemView.textView_gallery_description.text = description
+                itemView.textView_description.text = description
                 when (type) {
-                    "image/jpeg" -> Glide.with(context).load(link).into(itemView.imageView_gallery_preview)
-                    "image/png" -> Glide.with(context).load(link).into(itemView.imageView_gallery_preview)
-                    "image/gif" -> Glide.with(context).asGif().load(link).into(itemView.imageView_gallery_preview)
-                    else -> itemView.imageView_gallery_preview.setImageResource(R.drawable.not_available)
+                    "image/jpeg" -> Glide.with(context).load(link).into(itemView.imageView_image)
+                    "image/png" -> Glide.with(context).load(link).into(itemView.imageView_image)
+                    "image/gif" -> Glide.with(context).asGif().load(link).into(itemView.imageView_image)
+                    else -> itemView.imageView_image.setImageResource(R.drawable.not_available)
                 }
             }
         }

@@ -12,7 +12,7 @@ import io.github.edgardobarriam.techkandroidchallenge.server.Tag
 import io.github.edgardobarriam.techkandroidchallenge.ui.activity.TagGalleriesActivity
 import io.github.edgardobarriam.techkandroidchallenge.ui.activity.TagListActivity
 import io.github.edgardobarriam.techkandroidchallenge.ui.fragment.TagGalleriesFragment
-import kotlinx.android.synthetic.main.tag_list_content.view.*
+import kotlinx.android.synthetic.main.tag_list_item.view.*
 
 class TagsRecyclerViewAdapter(private val parentActivity: TagListActivity,
                               private val values: List<Tag>,
@@ -48,7 +48,7 @@ class TagsRecyclerViewAdapter(private val parentActivity: TagListActivity,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.tag_list_content, parent, false)
+                .inflate(R.layout.tag_list_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -65,6 +65,6 @@ class TagsRecyclerViewAdapter(private val parentActivity: TagListActivity,
     override fun getItemCount() = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tagDisplayName: TextView = view.textView_tag_name
+        val tagDisplayName: TextView = view.textView_name
     }
 }

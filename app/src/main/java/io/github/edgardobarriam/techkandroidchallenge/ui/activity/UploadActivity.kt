@@ -92,7 +92,7 @@ class UploadActivity : AppCompatActivity() {
                             {error -> toast(error.message!!)}
                     )
 
-                imageViewFoto.setImageURI(imageuri)
+                imageView_uploaded_image.setImageURI(imageuri)
             }
             1 -> {
                 //TODO: Take from camera

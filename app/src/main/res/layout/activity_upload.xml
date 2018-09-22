@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button_upload_gallery" />
 
     <ImageView
-        android:id="@+id/imageViewFoto"
+        android:id="@+id/imageView_uploaded_image"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_marginBottom="8dp"
