@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import io.github.edgardobarriam.techkandroidchallenge.R
 import io.github.edgardobarriam.techkandroidchallenge.server.Comment
 import kotlinx.android.synthetic.main.comment_list_item.view.*
@@ -15,17 +16,19 @@ class CommentsRecyclerViewAdapter(val comments: List<Comment>) : RecyclerView.Ad
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int = comments.size
+    override fun getItemCount() = comments.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val comment = comments[position]
+        val commentItem = comments[position]
 
-        holder.author.text = comment.author
-        holder.comment.text = comment.comment
+        with (commentItem){
+            holder.author.text = author
+            holder.comment.text = comment
+        }
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val author = view.textView_author
-        val comment = view.textView_comment
+        val author: TextView = view.textView_author
+        val comment: TextView = view.textView_comment
     }
 }
