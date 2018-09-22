@@ -10,7 +10,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context=".ui.activity.TagListActivity">
+    tools:context=".ui.activity.TagsActivity">
 
     <!--
     This layout is a two-pane layout for the Tags
@@ -27,7 +27,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:context="io.github.edgardobarriam.techkandroidchallenge.ui.activity.TagListActivity"
+        tools:context="io.github.edgardobarriam.techkandroidchallenge.ui.activity.TagsActivity"
         tools:listitem="@layout/tag_list_item" />
 
     <FrameLayout

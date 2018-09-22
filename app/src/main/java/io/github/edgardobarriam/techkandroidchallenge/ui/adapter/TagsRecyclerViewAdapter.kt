@@ -9,12 +9,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import io.github.edgardobarriam.techkandroidchallenge.R
 import io.github.edgardobarriam.techkandroidchallenge.server.Tag
-import io.github.edgardobarriam.techkandroidchallenge.ui.activity.TagGalleriesActivity
-import io.github.edgardobarriam.techkandroidchallenge.ui.activity.TagListActivity
-import io.github.edgardobarriam.techkandroidchallenge.ui.fragment.TagGalleriesFragment
+import io.github.edgardobarriam.techkandroidchallenge.ui.activity.GalleriesActivity
+import io.github.edgardobarriam.techkandroidchallenge.ui.activity.TagsActivity
+import io.github.edgardobarriam.techkandroidchallenge.ui.fragment.GalleriesFragment
 import kotlinx.android.synthetic.main.tag_list_item.view.*
 
-class TagsRecyclerViewAdapter(private val parentActivity: TagListActivity,
+class TagsRecyclerViewAdapter(private val parentActivity: TagsActivity,
                               private val values: List<Tag>,
                               private val twoPane: Boolean) :
         RecyclerView.Adapter<TagsRecyclerViewAdapter.ViewHolder>() {
@@ -25,10 +25,10 @@ class TagsRecyclerViewAdapter(private val parentActivity: TagListActivity,
         onClickListener = View.OnClickListener { v ->
             val item = v.tag as Tag
             if (twoPane) {
-                val fragment = TagGalleriesFragment().apply {
+                val fragment = GalleriesFragment().apply {
                     arguments = Bundle().apply {
-                        putString(TagGalleriesFragment.ARG_TAG_DISPLAY_NAME, item.display_name)
-                        putString(TagGalleriesFragment.ARG_TAG_NAME, item.name)
+                        putString(GalleriesFragment.ARG_TAG_DISPLAY_NAME, item.display_name)
+                        putString(GalleriesFragment.ARG_TAG_NAME, item.name)
                     }
                 }
                 parentActivity.supportFragmentManager
@@ -37,9 +37,9 @@ class TagsRecyclerViewAdapter(private val parentActivity: TagListActivity,
                         .commit()
             } else {
                 // Handheld
-                val intent = Intent(v.context, TagGalleriesActivity::class.java).apply {
-                    putExtra(TagGalleriesFragment.ARG_TAG_DISPLAY_NAME, item.display_name)
-                    putExtra(TagGalleriesFragment.ARG_TAG_NAME, item.name)
+                val intent = Intent(v.context, GalleriesActivity::class.java).apply {
+                    putExtra(GalleriesFragment.ARG_TAG_DISPLAY_NAME, item.display_name)
+                    putExtra(GalleriesFragment.ARG_TAG_NAME, item.name)
                 }
                 v.context.startActivity(intent)
             }

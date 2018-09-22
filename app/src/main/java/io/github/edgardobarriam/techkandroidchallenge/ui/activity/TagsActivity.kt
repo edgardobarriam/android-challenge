@@ -7,7 +7,7 @@ import io.github.edgardobarriam.techkandroidchallenge.server.ImgurApiService
 import io.github.edgardobarriam.techkandroidchallenge.server.Tag
 import io.github.edgardobarriam.techkandroidchallenge.server.TagSearch
 import io.github.edgardobarriam.techkandroidchallenge.ui.adapter.TagsRecyclerViewAdapter
-import io.github.edgardobarriam.techkandroidchallenge.ui.fragment.TagGalleriesFragment
+import io.github.edgardobarriam.techkandroidchallenge.ui.fragment.GalleriesFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -20,12 +20,12 @@ import org.jetbrains.anko.*
  * has different presentations for handset and tablet-size devices.
  *
  * On handsets, the activity presents a list of items, which when touched,
- * lead to a [TagGalleriesActivity].
+ * lead to a [GalleriesActivity].
  *
  * On tablets, the activity presents the list of Tags
  * and it's corresponding Galleries side-by-side using two vertical panes.
  */
-class TagListActivity : AppCompatActivity() {
+class TagsActivity : AppCompatActivity() {
 
     /** Whether or not the activity is in two-pane mode (running on a tablet). */
     private var twoPane = false
@@ -106,10 +106,10 @@ class TagListActivity : AppCompatActivity() {
 
     private fun loadTagGalleries(tagSearch: TagSearch, twoPane: Boolean) {
         if (twoPane) {
-            val fragment = TagGalleriesFragment().apply {
+            val fragment = GalleriesFragment().apply {
                 arguments = Bundle().apply {
-                    putString(TagGalleriesFragment.ARG_TAG_DISPLAY_NAME, tagSearch.display_name)
-                    putString(TagGalleriesFragment.ARG_TAG_NAME, tagSearch.name)
+                    putString(GalleriesFragment.ARG_TAG_DISPLAY_NAME, tagSearch.display_name)
+                    putString(GalleriesFragment.ARG_TAG_NAME, tagSearch.name)
                 }
             }
             this.supportFragmentManager
@@ -117,9 +117,9 @@ class TagListActivity : AppCompatActivity() {
                     .replace(R.id.tag_galleries_container, fragment)
                     .commit()
         } else {
-            startActivity(intentFor<TagGalleriesActivity>(
-                    TagGalleriesFragment.ARG_TAG_NAME to tagSearch.name,
-                    TagGalleriesFragment.ARG_TAG_DISPLAY_NAME to tagSearch.display_name
+            startActivity(intentFor<GalleriesActivity>(
+                    GalleriesFragment.ARG_TAG_NAME to tagSearch.name,
+                    GalleriesFragment.ARG_TAG_DISPLAY_NAME to tagSearch.display_name
             ))
         }
     }

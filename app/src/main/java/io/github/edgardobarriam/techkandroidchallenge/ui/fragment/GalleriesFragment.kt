@@ -32,7 +32,7 @@ import org.jetbrains.anko.verticalLayout
  * in two-pane mode (on tablets) or a [TagGalleriesActivity]
  * on handsets.
  */
-class TagGalleriesFragment : Fragment() {
+class GalleriesFragment : Fragment() {
 
     private val imgurApiService by lazy {
         ImgurApiService.getInstance()

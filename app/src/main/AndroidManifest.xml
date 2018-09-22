@@ -24,17 +24,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.TagListActivity"
+            android:name=".ui.activity.TagsActivity"
             android:label="@string/title_tag_list"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.activity.TagGalleriesActivity"
+            android:name=".ui.activity.GalleriesActivity"
             android:label="@string/title_tag_detail"
-            android:parentActivityName=".ui.activity.TagListActivity"
+            android:parentActivityName=".ui.activity.TagsActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.edgardobarriam.techkandroidchallenge.ui.activity.TagListActivity" />
+                android:value="io.github.edgardobarriam.techkandroidchallenge.ui.activity.TagsActivity" />
         </activity>
         <activity
             android:name=".ui.activity.GalleryActivity"
