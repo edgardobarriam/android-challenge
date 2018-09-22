@@ -28,9 +28,8 @@ import org.jetbrains.anko.verticalLayout
 
 /**
  * A fragment representing a list of Galleries related to a Tag screen.
- * This fragment is either contained in a [TagListActivity]
- * in two-pane mode (on tablets) or a [TagGalleriesActivity]
- * on handsets.
+ * This fragment is either contained in a [TagsActivity] in two-pane mode (on tablets)
+ * or a [GalleriesActivity] on handsets.
  */
 class GalleriesFragment : Fragment() {
 
