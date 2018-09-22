@@ -17,25 +17,31 @@ import org.jetbrains.anko.toast
 
 class GalleryActivity : AppCompatActivity() {
     val activity = this
+
     private val imgurApiService by lazy {
         ImgurApiService.getInstance()
     }
-    var disposable: Disposable? = null
+    var disposableRequest: Disposable? = null
+
+    override fun onPause() {
+        super.onPause()
+        disposableRequest?.dispose()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery)
+
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Gallery"
+        supportActionBar?.title = getString(R.string.gallery)
 
         val gallery = intent.getParcelableExtra<Gallery>(ARG_GALLERY)
 
         displayGallery(gallery)
         loadComments(gallery)
-
     }
 
-    fun displayGallery(gallery: Gallery) {
+    private fun displayGallery(gallery: Gallery) {
         with(gallery) {
             textView_title.text = title
             textView_upvotes.text = ups.toString()
@@ -46,8 +52,8 @@ class GalleryActivity : AppCompatActivity() {
         }
     }
 
-    fun loadComments(gallery: Gallery) {
-        disposable = imgurApiService.getGalleryComments(gallery.id)
+    private fun loadComments(gallery: Gallery) {
+        disposableRequest = imgurApiService.getGalleryComments(gallery.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -62,7 +68,7 @@ class GalleryActivity : AppCompatActivity() {
                 )
     }
 
-    fun setupCommentsRecycler(comments: List<Comment>) {
+    private fun setupCommentsRecycler(comments: List<Comment>) {
         recyclerView_comments.adapter = CommentsRecyclerViewAdapter(comments)
         recyclerView_comments.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
     }
