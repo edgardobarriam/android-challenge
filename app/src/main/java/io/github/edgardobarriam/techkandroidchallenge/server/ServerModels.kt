@@ -27,7 +27,7 @@ data class Gallery(
         var description: String?,
         var link: String,
         val datetime: Long,
-        val views: Int,
+        var views: Int,
         val ups: Int,
         val downs: Int,
         val images: List<Image>? ) : Parcelable {
@@ -67,6 +67,7 @@ data class Gallery(
                 description = images[0].description
                 link = images[0].link
                 type = images[0].type
+                views = images[0].views
             }
         }
     }
@@ -83,18 +84,23 @@ data class Gallery(
 
 }
 
-data class Image(val link: String, val type: String, val description: String?) : Parcelable {
-
+data class Image(
+        val link: String,
+        val type: String,
+        val description: String?,
+        val views: Int) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
-            parcel.readString()) {
+            parcel.readString(),
+            parcel.readInt()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(link)
         parcel.writeString(type)
         parcel.writeString(description)
+        parcel.writeInt(views)
     }
 
     override fun describeContents(): Int {
@@ -110,7 +116,6 @@ data class Image(val link: String, val type: String, val description: String?) :
             return arrayOfNulls(size)
         }
     }
-
 }
 
 data class GalleryCommentsResponse(val data: List<Comment>)

@@ -15,12 +15,13 @@ import io.github.edgardobarriam.techkandroidchallenge.ui.fragment.GalleriesFragm
 import kotlinx.android.synthetic.main.tag_list_item.view.*
 
 class TagsRecyclerViewAdapter(private val parentActivity: TagsActivity,
-                              private val values: List<Tag>,
+                              private val listTags: List<Tag>,
                               private val twoPane: Boolean) :
         RecyclerView.Adapter<TagsRecyclerViewAdapter.ViewHolder>() {
 
     private val onClickListener: View.OnClickListener
 
+    //Todo: Refactor this file
     init {
         onClickListener = View.OnClickListener { v ->
             val item = v.tag as Tag
@@ -46,6 +47,14 @@ class TagsRecyclerViewAdapter(private val parentActivity: TagsActivity,
         }
     }
 
+    private fun setupGalleriesFragment() {
+
+    }
+
+    private fun startGalleriesActivity() {
+
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.tag_list_item, parent, false)
@@ -53,16 +62,16 @@ class TagsRecyclerViewAdapter(private val parentActivity: TagsActivity,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.tagDisplayName.text = item.display_name
+        val item = listTags[position]
 
+        holder.tagDisplayName.text = item.display_name
         with(holder.itemView) {
             tag = item
             setOnClickListener(onClickListener)
         }
     }
 
-    override fun getItemCount() = values.size
+    override fun getItemCount() = listTags.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tagDisplayName: TextView = view.textView_name
