@@ -2,6 +2,7 @@ package io.github.edgardobarriam.techkandroidchallenge.ui.adapter
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -21,38 +22,36 @@ class TagsRecyclerViewAdapter(private val parentActivity: TagsActivity,
 
     private val onClickListener: View.OnClickListener
 
-    //Todo: Refactor this file
     init {
         onClickListener = View.OnClickListener { v ->
             val item = v.tag as Tag
             if (twoPane) {
-                val fragment = GalleriesFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(GalleriesFragment.ARG_TAG_DISPLAY_NAME, item.display_name)
-                        putString(GalleriesFragment.ARG_TAG_NAME, item.name)
-                    }
-                }
-                parentActivity.supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.tag_galleries_container, fragment)
-                        .commit()
+                setupGalleriesFragment(item)
             } else {
-                // Handheld
-                val intent = Intent(v.context, GalleriesActivity::class.java).apply {
-                    putExtra(GalleriesFragment.ARG_TAG_DISPLAY_NAME, item.display_name)
-                    putExtra(GalleriesFragment.ARG_TAG_NAME, item.name)
-                }
-                v.context.startActivity(intent)
+                startGalleriesActivity(item, v)
             }
         }
     }
 
-    private fun setupGalleriesFragment() {
-
+    private fun setupGalleriesFragment(item: Tag) {
+        val fragment = GalleriesFragment().apply {
+            arguments = Bundle().apply {
+                putString(GalleriesFragment.ARG_TAG_DISPLAY_NAME, item.display_name)
+                putString(GalleriesFragment.ARG_TAG_NAME, item.name)
+            }
+        }
+        parentActivity.supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.tag_galleries_container, fragment)
+                .commit()
     }
 
-    private fun startGalleriesActivity() {
-
+    private fun startGalleriesActivity(item: Tag, view: View) {
+        val intent = Intent(view.context, GalleriesActivity::class.java).apply {
+            putExtra(GalleriesFragment.ARG_TAG_DISPLAY_NAME, item.display_name)
+            putExtra(GalleriesFragment.ARG_TAG_NAME, item.name)
+        }
+        view.context.startActivity(intent)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

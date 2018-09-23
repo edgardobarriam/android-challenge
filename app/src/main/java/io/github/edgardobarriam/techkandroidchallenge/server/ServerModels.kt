@@ -61,6 +61,11 @@ data class Gallery(
         return 0
     }
 
+    /** Imgur API has a different structure depending on whether the gallery has
+     *  a single image or a set of images. Hence, this function "converts"
+     *  multiple images galleries into single image galleries (so that all galleries
+     *  have a similar structure and behavior).
+     */
     fun fixGallery() {
         with(this) {
             if(images != null) {
