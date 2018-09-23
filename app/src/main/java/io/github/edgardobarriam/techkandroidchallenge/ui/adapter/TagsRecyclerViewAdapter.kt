@@ -2,7 +2,6 @@ package io.github.edgardobarriam.techkandroidchallenge.ui.adapter
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +24,7 @@ class TagsRecyclerViewAdapter(private val parentActivity: TagsActivity,
     init {
         onClickListener = View.OnClickListener { v ->
             val item = v.tag as Tag
+
             if (twoPane) {
                 setupGalleriesFragment(item)
             } else {

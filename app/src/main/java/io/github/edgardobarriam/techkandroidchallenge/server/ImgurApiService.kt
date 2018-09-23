@@ -18,7 +18,10 @@ interface ImgurApiService {
     @GET("gallery/{imageId}/comments/") fun getGalleryComments(@Path("imageId") imageId: String ): Observable<GalleryCommentsResponse>
 
     @Multipart
-    @POST("image") fun postImage(@Part image: MultipartBody.Part, @Part("title") title: RequestBody) : Observable<UploadResponse>
+    @POST("image") fun postImage(
+            @Part image: MultipartBody.Part,
+            @Part("title") title: RequestBody,
+            @Part("description") description: RequestBody) : Observable<UploadResponse>
 
     // Singleton
     companion object {
