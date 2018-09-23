@@ -70,7 +70,7 @@ class GalleriesFragment : Fragment() {
     }
 
     private fun showSearchDialog() {
-        alert { title = "Seach a Gallery"
+        alert { title = "Search a Gallery"
             customView {
                 verticalLayout {
                     val titleInput = editText{hint = "Title"}
@@ -101,10 +101,13 @@ class GalleriesFragment : Fragment() {
                             listGalleries.forEach { it.fixGallery() }
 
                             setupGalleriesRecycler(listGalleries)
+                            enableSearchButton()
                         },
                         {error -> toast(error.message!!)}
                 )
     }
+
+    private fun enableSearchButton() { button_search_galleries.visibility = View.VISIBLE }
 
     private fun setupGalleriesRecycler(data: List<Gallery>) {
         recyclerView_galleries.adapter = GalleriesRecyclerViewAdapter(context!!,data) {
