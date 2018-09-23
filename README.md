@@ -1,4 +1,4 @@
-#h1 Tech-K Android Challenge - Edgardo Barría Melián
+# Tech-K Android Challenge - Edgardo Barría Melián
 
 This app is a front-end for the [Imgur API](https://apidocs.imgur.com/) and uses some of it's functions as an anonymous user. The app is designed to work on Smartphones and Tablets.
 
