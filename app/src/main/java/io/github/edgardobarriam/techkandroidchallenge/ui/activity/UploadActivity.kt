@@ -55,7 +55,7 @@ class UploadActivity : AppCompatActivity() {
 
     private fun hasStoragePermission() : Boolean {
         return if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
+            checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
         } else {
             true
         }
