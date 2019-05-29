@@ -1,6 +1,6 @@
 # Tech-K Android Challenge - Edgardo Barría Melián
 
-This app is a front-end for the [Imgur API](https://apidocs.imgur.com/) and uses some of it's functions as an anonymous user. The app is designed to work on Smartphones and Tablets.
+This app is a front-end for the [Imgur API](https://apidocs.imgur.com/) and uses some of its functions as an anonymous user. The app is designed to work on Smartphones and Tablets.
 
 This project has the following requirements and uses these libraries:
 
